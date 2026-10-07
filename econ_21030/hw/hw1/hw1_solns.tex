@@ -1,0 +1,108 @@
+\documentclass{amsart}
+\usepackage{amsmath, amsthm, amssymb}
+
+\newtheorem{theorem}{Problem}[section]
+\renewcommand{\thetheorem}{\thesection.\alph{theorem}}
+
+\title{ECON 21030 HW1}
+\author{Andrew Lys}
+\begin{document}
+\maketitle
+\section{Problem 1}
+Let 
+\[
+M_X(t) = E[\exp(tX)]
+\]
+whenever this expectation exists in a neighborhood of $t = 0$.
+\begin{theorem}
+    Write down and simplify as much as possible the MGF for a normal distribution with mean $\mu$ and variance $\sigma^2$. 
+\end{theorem}
+\begin{proof}
+   Let $X = \mu + \sigma Z$, where $Z \sim N(0, 1)$. 
+   We know that 
+   \[
+   \exp\left(
+    -\frac12 \sigma^2t + \sigma B_t
+   \right)
+   \] 
+   is a martingale, so we know that 
+   \[
+   \exp(\sqrt{t}\mu) = E\exp\left(
+    -\frac12 t \sigma^2 + \sigma \sqrt{t} Z + \mu \sqrt{t}
+   \right) = E \exp\left(
+    -\frac12 t \sigma^2 + \sqrt{t} X
+   \right)
+   \]
+   Which implies that
+   \[
+   M_X(t) = \exp\left(
+    t \mu + \frac12 t^2 \sigma^2
+   \right)
+   \]
+\end{proof}
+\begin{theorem}
+    What are the first and second derivatives of the MGF for this normal random variable at $t = 0$? 
+    How do they relate to its moments? 
+\end{theorem}
+\begin{proof}
+    We have that 
+    \[
+    M_X^{(n)}(t) = E[X^n \exp(tX)]
+    \]
+    so that 
+    \[
+    M_X^{(n)}(0) = E[X^n]
+    \]
+    In particular, we have 
+    \[
+    M_X'(0) = \mu \qquad M_X''(0) = \sigma^2 + \mu^2
+    \]
+\end{proof}
+\begin{theorem}
+    Take a third order taylor expansion of $\exp(tX)$ around zero. 
+    What is its expectation? 
+\end{theorem}
+\begin{proof}
+    \[
+    \exp(tX) = 1 + tX + \frac{t^2 X^2}{2} + \frac{t^3 X^3}{6} + O(t^4X^4)
+    \]
+    Taking expectations, we get
+    \[
+    E\exp(tX) = 1 + t E[X] + \frac{t^2}{2} E[X^2] + \frac{t^3}{3!} E[X^3]
+    \]
+    This leads us to believe that 
+    \[
+    M_X^{(n)}(0) = E[X^n]
+    \]
+\end{proof}
+\begin{theorem}
+    Consider i.i.d. random variables $X_1, X_2, \ldots$ with finite mean $\mu$ and variance $\sigma^2$.
+    Define 
+    \[
+    Z_n = \frac{1}{\sqrt{n}} \sum_{i = 1}^n \frac{X_i - \mu}{\sigma}
+    \]
+    How does the MGF of $Z_n$ relate to the MGF of $Y_i = \frac{X_i - \mu}{\sigma}$?
+\end{theorem}
+\begin{proof}
+    We have that 
+    \[
+    \]
+    \begin{align*}
+    M_{Z_n}(t) &= E\exp\left(
+        \frac{t}{\sigma \sqrt{n}} \sum_{i = 1}^n (X_i - \mu)
+    \right) \\
+    &= \prod_{i = 1}^n E \exp\left(
+        \frac{t}{\sigma \sqrt{n}} (X_i - \mu)
+    \right) \\
+    &= \prod_{i = 1}^n \exp\left(
+        \frac{1}{2} \left[
+            \frac{t}{\sigma \sqrt{n}}
+        \right]^2 \sigma^2
+    \right) \\
+    &= \exp\left(
+        \frac12 t^2
+    \right)
+    \end{align*}
+    This is precisely the MGF of $Y_i$
+\end{proof}
+\end{document}
